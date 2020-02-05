@@ -1,4 +1,4 @@
-export const SQUARE = 40;
+export const MINO = 40;
 
 export const I = [
   [
@@ -160,4 +160,4 @@ export const PURPLE = "purple"; //T
 export const RED = "#FF3213"; //Z
 export const EMPTY = "white";
 
-export const PIECES = [I, J, L, O, S, T, Z];
+export const TETROMINOS = [I, J, L, O, S, T, Z];

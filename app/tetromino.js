@@ -1,5 +1,6 @@
 import {
   I, J, L, O, S, T, Z,
+  EMPTY,
   YELLOW, //O
   ORANGE, //L
   PURPLE, //T
@@ -7,23 +8,23 @@ import {
   LBLUE,  //I
   GREEN,  //S
   RED,    //Z
-  SQUARE,
+  MINO,
 } from "./constants";
 
 class Tetromino {
-  constructor(ctx, board, piece) {
+  constructor(ctx, board, tetromino) {
     this.ctx = ctx;
     this.board = board;
-    this.piece = piece;
+    this.tetromino = tetromino;
     this.index = 0;
     this.color = this.setColor();
-    this.domain = this.piece[this.index];
+    this.domain = this.tetromino[this.index];
     this.x = 3;
     this.y = -2;
   }
 
   setColor() {
-    switch(this.piece){
+    switch(this.tetromino){
       case O:
         return this.color = YELLOW;
       case L:
@@ -41,71 +42,90 @@ class Tetromino {
     }
   }
 
-  fillSquare(x, y, color) {
+  fillMino(x, y, color) {
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(x * SQUARE, y * SQUARE, SQUARE, SQUARE);
+    this.ctx.fillRect(x * MINO, y * MINO, MINO, MINO);
     this.ctx.strokeStyle = "black";
-    this.ctx.strokeRect(x * SQUARE, y * SQUARE, SQUARE, SQUARE);
+    this.ctx.strokeRect(x * MINO, y * MINO, MINO, MINO);
   }
 
   draw() {
+    // draws tetromino on canvas
+    // updates board
     for (let i = 0; i < this.domain.length; i++){
       for (let j = 0; j < this.domain.length; j++){
         if (this.domain[i][j]){
-          this.fillSquare(i + this.x, j + this.y, this.color);
+          this.fillMino(i + this.x, j + this.y, this.color);
+          this.board[i + this.x][j + this.y] = this.color;
         }
       }
     }
   }
 
   clear() {
+    // clears tetromino on canvas
+    // updates board
     for (let i = 0; i < this.domain.length; i++) {
       for (let j = 0; j < this.domain.length; j++) {
         if (this.domain[i][j]) {
-          this.fillSquare(i + this.x, j + this.y, "white");
+          this.fillMino(i + this.x, j + this.y, EMPTY);
+          this.board[i + this.x][j + this.y] = EMPTY;
         }
       }
     }
   }
 
   down() {
+    // move tetromino down
+    this.clear();
     if (this.validMove(this.x, this.y + 1, this.domain)) {
-      this.clear();
       this.y++;
       this.draw();
+    } else {
+      this.draw();
+      return false;
     }
   }
 
   left() {
+    // move tetromino left
+    this.clear();
     if (this.validMove(this.x - 1, this.y, this.domain)) {
-      this.clear();
       this.x--;
-      this.draw();
     }
+    this.draw();
   }
 
   right() {
+    // move tetromino right
+    this.clear();
     if (this.validMove(this.x + 1, this.y, this.domain)) {
-      this.clear();
       this.x++;
-      this.draw();
     }
+    this.draw();
   }
 
   rotate() {
-    if (this.validMove(this.x, this.y, this.piece[this.index + 1])){
-      this.clear();
+    // "rotates" tetromino; grabs next position from tetromino
+    this.clear();
+    if (this.validMove(this.x, this.y, this.tetromino[(this.index + 1) % 4])){
       this.index = (this.index + 1) % 4;
-      this.draw();
+      this.domain = this.tetromino[this.index];
     }
+    this.draw();
+    console.log(this.index)
+    console.log(this.domain)
   }
 
   validMove(x, y, domain) {
+    // checks if tetromino stays within board and not moving on top of another tetromino
     for (let i = 0; i < domain.length; i++) {
       for (let j = 0; j < domain.length; j++) {
         if (domain[i][j]){
-          if ((x + i) < 0 || (x + i) > 9) { return false };
-          if ((y + j) < 0 || (y + j) > 19){ return false };
+          if ((x + i) < 0 || (x + i) > 9) { return false }
+          else if (y < 0) { break }
+          else if (this.board[x + i][y + j] !== EMPTY) { return false }
+          else if ((y + j) > 19) { return false };
         }
       }
     }

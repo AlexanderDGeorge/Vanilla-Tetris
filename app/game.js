@@ -1,19 +1,19 @@
 import Tetromino from "./tetromino";
 import {
-  I, J, L, O, S, T, Z,
   EMPTY,
-  SQUARE,
-  PIECES
+  MINO,
+  TETROMINOS
 } from "./constants";
 
 class Game {
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
-    this.speed = 1500;
+    this.speed = 1000;
+    this.score = 0;
     this.board = [];
-    this.pieces = [];
+    this.tetrominos = [];
     this.current;
-    this.run = this.run.bind(this);
+    this.run = this.run.bind(this); // keeps context in setInterval
   }
 
   start() {
@@ -25,74 +25,75 @@ class Game {
       }
     }
 
-    // initializes pieces
+    // initializes tetrominos
     for (let i = 0; i < 3; i++) {
       this.next();
     }
 
-    // grab first piece
-    this.current = this.pieces.shift();
+    // grab first tetromino
+    this.current = this.tetrominos.shift();
     this.next();
 
+    // draw board and start game
     this.draw();
-    this.run();
-    //setInterval(this.run, this.speed);
+    setInterval(this.run, this.speed);
   }
 
   run() {
-    console.log(this);
-    this.current.draw();
-    this.current.down();
-    this.current.right();
+    if (this.current.down() === false) {
+      // down is not a valid move, check if row is full and get the next tetromino
+      this.isRowFull();
+      this.current = this.tetrominos.shift();
+      this.next();
+      debugger;
+    }
   }
 
   draw() {
     // draws the board
     for(let i = 0; i < 10; i++){
       for(let j = 0; j < 20; j++){
-        this.fillSquare(i, j, "white")
+        this.fillMino(i, j, "white")
       }
     }
   }
 
-  fillSquare(x, y, color) {
+  fillMino(x, y, color) {
     this.ctx.fillStyle = color;
-    this.ctx.fillRect(x * SQUARE, y * SQUARE, SQUARE, SQUARE);
+    this.ctx.fillRect(x * MINO, y * MINO, MINO, MINO);
     this.ctx.strokeStyle = "black";
-    this.ctx.strokeRect(x * SQUARE, y * SQUARE, SQUARE, SQUARE);
+    this.ctx.strokeRect(x * MINO, y * MINO, MINO, MINO);
   }
-
-  step() {
-    // function calls move and check
-    this.move();
-    this.check();
-  }
-
-  next() {
-    // function generates next piece
-    let i = Math.floor(Math.random() * 6);
-    let piece = PIECES[i];
-    switch (piece) {
-      case I:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case J:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case L:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case O:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case S:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case T:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case Z:
-        this.pieces.push(new Tetromino(this.ctx, this.board, piece));
+  
+  check() {
+    // function checks the position of the current tetromino and dispatches necessary actions
+    if (this.current.down() === false) {
+      // down is not a valid move, we get the next tetromino
+      this.current = this.tetrominos.shift();
+      this.next();
     }
   }
+  
+  next() {
+    // function generates next tetromino
+    let i = Math.floor(Math.random() * 6);
+    let tetromino = TETROMINOS[i];
+    this.tetrominos.push(new Tetromino(this.ctx, this.board, tetromino))
+  }
 
-  check() {
-    // function checks the position of the current piece and dispatches necessary function
-    // could call score, remove, or next
+  isRowFull() {
+    for (let j = 0; j < 19; j++) {
+      for (let i = 0; i < 10; i++){
+        if (this.board[i][j] === EMPTY){
+          break;
+        } 
+        else if (i === 9){
+          debugger;
+          return true;
+        } 
+      }
+    }
+    return false;
   }
 
   score() {
