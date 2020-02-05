@@ -152,12 +152,12 @@ export const Z = [
 ];
 
 export const LBLUE = "lightblue"; //I
-export const DBLUE = "0341AE"; //J
+export const DBLUE = "#0341AE"; //J
 export const ORANGE = "#FF971C"; //L
 export const YELLOW = "#FFD500"; //O
-export const GREEN = "72CB3B"; //S
+export const GREEN = "#72CB3B"; //S
 export const PURPLE = "purple"; //T
-export const RED = "FF3213"; //Z
+export const RED = "#FF3213"; //Z
 export const EMPTY = "white";
 
 export const PIECES = [I, J, L, O, S, T, Z];

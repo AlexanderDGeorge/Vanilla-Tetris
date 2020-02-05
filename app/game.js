@@ -1,12 +1,6 @@
 import Tetromino from "./tetromino";
 import {
-  YELLOW,
-  ORANGE,
-  PURPLE,
-  DBLUE,
-  LBLUE,
-  GREEN,
-  RED,
+  I, J, L, O, S, T, Z,
   EMPTY,
   SQUARE,
   PIECES
@@ -31,18 +25,24 @@ class Game {
       }
     }
 
+    // initializes pieces
     for (let i = 0; i < 3; i++) {
       this.next();
     }
 
+    // grab first piece
+    this.current = this.pieces.shift();
+    this.next();
+
     this.draw();
-    this.move();
+    this.run();
     //setInterval(this.run, this.speed);
   }
 
   run() {
     console.log(this);
     this.current.draw();
+    this.current.down();
     this.current.right();
   }
 
@@ -73,30 +73,20 @@ class Game {
     let i = Math.floor(Math.random() * 6);
     let piece = PIECES[i];
     switch (piece) {
-      case "I":
+      case I:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case "J":
+      case J:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case "L":
+      case L:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case "O":
+      case O:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case "S":
+      case S:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case "T":
+      case T:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-      case "Z":
+      case Z:
         this.pieces.push(new Tetromino(this.ctx, this.board, piece));
-    }
-  }
-
-  move() {
-    // function moves current piece down or grabs next piece
-    if (this.current) {
-      //this.current.move();
-    } else {
-      this.current = this.pieces.shift();
-      this.next();
     }
   }
 
