@@ -1,4 +1,4 @@
-export const MINO = 40;
+export const MINO = 30;
 
 export const I = [
   [

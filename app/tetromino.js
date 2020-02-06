@@ -123,7 +123,7 @@ class Tetromino {
           if ((x + i) < 0 || (x + i) > 9) { return false }
           else if (y < 0) { break }
           else if (this.board[x + i][y + j] !== EMPTY) { return false }
-          else if ((y + j) > 19) { return false };
+          //else if ((y + j) > 19) { return false };
         }
       }
     }

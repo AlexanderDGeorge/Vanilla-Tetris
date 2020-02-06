@@ -48,7 +48,11 @@ class Game {
     }
 
     // grab first tetromino
-    this.current = this.tetrominos.shift();
+      this.current = new Tetromino(
+        this.ctx,
+        this.board,
+        this.tetrominos.shift()
+      );
     this.next();
    
     // draw board, listen for user input and start game
@@ -60,8 +64,13 @@ class Game {
   run() {
     if (this.current.down() === false) {
       // down is not a valid move, check if row is full and get the next tetromino
-      this.isRowFull();
-      this.current = this.tetrominos.shift();
+      let reduce = this.isRowFull();
+      while (reduce) { reduce = this.isRowFull() }
+      this.current = new Tetromino(
+        this.ctx,
+        this.board,
+        this.tetrominos.shift()
+      );
       this.next();
     }
   }
@@ -86,7 +95,7 @@ class Game {
     // function generates next tetromino
     let i = Math.floor(Math.random() * 6);
     let tetromino = TETROMINOS[i];
-    this.tetrominos.push(new Tetromino(this.ctx, this.board, tetromino))
+    this.tetrominos.push(tetromino)
   }
 
   isRowFull() {
@@ -96,9 +105,8 @@ class Game {
           break;
         } 
         else if (i === 9){
-          debugger;
           this.clearRow(j);
-          debugger;
+          return true;
         } 
       }
     }
@@ -114,6 +122,7 @@ class Game {
   }
 
   emptyRow() {
+    // generates an empty row to push to board
     let row = [];
     for (let i = 0; i < 10; i++){
       row.push(EMPTY);
