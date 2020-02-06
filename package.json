@@ -25,5 +25,7 @@
     "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.2"
   },
-  "dependencies": {}
+  "dependencies": {
+    "mathjs": "^6.6.0"
+  }
 }

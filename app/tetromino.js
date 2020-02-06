@@ -1,12 +1,12 @@
 import {
   I, J, L, O, S, T, Z,
   EMPTY,
-  YELLOW, //O
-  ORANGE, //L
-  PURPLE, //T
-  DBLUE,  //J
   LBLUE,  //I
+  DBLUE,  //J
+  ORANGE, //L
+  YELLOW, //O
   GREEN,  //S
+  PURPLE, //T
   RED,    //Z
   MINO,
 } from "./constants";
@@ -113,8 +113,6 @@ class Tetromino {
       this.domain = this.tetromino[this.index];
     }
     this.draw();
-    console.log(this.index)
-    console.log(this.domain)
   }
 
   validMove(x, y, domain) {

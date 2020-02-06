@@ -1,3 +1,4 @@
+import * as Math from "mathjs";
 import Tetromino from "./tetromino";
 import {
   EMPTY,
@@ -13,7 +14,23 @@ class Game {
     this.board = [];
     this.tetrominos = [];
     this.current;
-    this.run = this.run.bind(this); // keeps context in setInterval
+    this.run = this.run.bind(this);
+    this.input = this.input.bind(this);
+  }
+
+  input(e) {
+    if (e.keyCode === 37) {
+      this.current.left();
+    }
+    if (e.keyCode === 38) {
+      this.current.rotate();
+    }
+    if (e.keyCode === 39) {
+      this.current.right();
+    }
+    if (e.keyCode === 40) {
+      this.current.down();
+    }
   }
 
   start() {
@@ -33,9 +50,10 @@ class Game {
     // grab first tetromino
     this.current = this.tetrominos.shift();
     this.next();
-
-    // draw board and start game
+   
+    // draw board, listen for user input and start game
     this.draw();
+    document.addEventListener("keydown", this.input);
     setInterval(this.run, this.speed);
   }
 
@@ -45,7 +63,6 @@ class Game {
       this.isRowFull();
       this.current = this.tetrominos.shift();
       this.next();
-      debugger;
     }
   }
 
@@ -53,7 +70,7 @@ class Game {
     // draws the board
     for(let i = 0; i < 10; i++){
       for(let j = 0; j < 20; j++){
-        this.fillMino(i, j, "white")
+        this.fillMino(i, j, this.board[i][j])
       }
     }
   }
@@ -65,15 +82,6 @@ class Game {
     this.ctx.strokeRect(x * MINO, y * MINO, MINO, MINO);
   }
   
-  check() {
-    // function checks the position of the current tetromino and dispatches necessary actions
-    if (this.current.down() === false) {
-      // down is not a valid move, we get the next tetromino
-      this.current = this.tetrominos.shift();
-      this.next();
-    }
-  }
-  
   next() {
     // function generates next tetromino
     let i = Math.floor(Math.random() * 6);
@@ -82,26 +90,35 @@ class Game {
   }
 
   isRowFull() {
-    for (let j = 0; j < 19; j++) {
+    for (let j = 19; j > 0; j--) {
       for (let i = 0; i < 10; i++){
         if (this.board[i][j] === EMPTY){
           break;
         } 
         else if (i === 9){
           debugger;
-          return true;
+          this.clearRow(j);
+          debugger;
         } 
       }
     }
     return false;
   }
 
-  score() {
-    // function updates and maintains score
+  clearRow(row) {
+    this.board = Math.transpose(this.board);
+    this.board.splice(row, 1);
+    this.board.unshift(this.emptyRow());
+    this.board = Math.transpose(this.board);
+    this.draw();
   }
 
-  remove() {
-    // function handles removing and updating rows from grid
+  emptyRow() {
+    let row = [];
+    for (let i = 0; i < 10; i++){
+      row.push(EMPTY);
+    }
+    return row;
   }
 
   speed() {
