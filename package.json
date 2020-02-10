@@ -19,14 +19,14 @@
   },
   "homepage": "https://github.com/AlexanderDGeorge/Tetris#readme",
   "devDependencies": {
-    "@babel/core": "^7.8.4",
-    "babel-loader": "^8.0.6",
-    "babel-preset-es2015": "^6.24.1",
-    "webpack": "^4.41.5",
-    "webpack-cli": "^3.3.10",
     "webpack-dev-server": "^3.10.2"
   },
   "dependencies": {
-    "mathjs": "^6.6.0"
+    "mathjs": "^6.6.0",
+    "webpack": "^4.41.5",
+    "webpack-cli": "^3.3.10",
+    "@babel/core": "^7.8.4",
+    "babel-loader": "^8.0.6",
+    "babel-preset-es2015": "^6.24.1"
   }
 }
