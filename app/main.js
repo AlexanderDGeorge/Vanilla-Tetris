@@ -1,7 +1,6 @@
-import Game from './game';
+import Board from './board';
 
 window.addEventListener("DOMContentLoaded", (event) => {
-  const canvas = document.getElementById("canvas");
-  const game = new Game(canvas);
-  game.start();
+  const canvas = document.getElementById("board-canvas");
+  const board = new Board(canvas);
 })

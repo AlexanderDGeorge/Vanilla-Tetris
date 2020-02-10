@@ -1,4 +1,15 @@
-export const MINO = 30;
+const div = document.getElementById("board");
+
+export const MINO = div.offsetWidth * 2 < div.offsetHeight ? div.offsetWidth / 10 : div.offsetHeight / 20;
+
+export const LBLUE = "lightblue"; //I
+export const DBLUE = "darkblue";  //"#0341AE"; //J
+export const ORANGE = "orange";   //"#FF971C";  //L
+export const YELLOW = "yellow";   //"#FFD500";  //O
+export const GREEN = "green";     //"#72CB3B";   //S
+export const PURPLE = "purple";   //T
+export const RED = "red";         //"#FF3213";     //Z
+export const EMPTY = "gray";
 
 export const I = [
   [
@@ -150,14 +161,5 @@ export const Z = [
     [1, 0, 0]
   ]
 ];
-
-export const LBLUE = "lightblue"; //I
-export const DBLUE = "#0341AE"; //J
-export const ORANGE = "#FF971C"; //L
-export const YELLOW = "#FFD500"; //O
-export const GREEN = "#72CB3B"; //S
-export const PURPLE = "purple"; //T
-export const RED = "#FF3213"; //Z
-export const EMPTY = "white";
 
 export const TETROMINOS = [I, J, L, O, S, T, Z];

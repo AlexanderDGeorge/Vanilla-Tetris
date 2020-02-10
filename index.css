@@ -1,6 +1,115 @@
-body {
+@font-face {
+  font-family: 'digital-7';
+  src: url(./digital-7.ttf);
+}
+
+#body {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 20px;
   height: 100vh;
   width: 100vw;
-  margin: 0;
-  border: 0;
+  background-color: black;
+  display: grid;
+  grid-template-columns: 30% 40% 30%;
+  grid-template-rows: 20% 10% 70%;
+  grid-template-areas: 
+    "menu board board"
+    "tetris board board"
+    "stats board board";
+  font-family: 'digital-7';
+  font-size: 20px;
+}
+
+#audio {
+  display: none;
+}
+
+#hold {
+  grid-area: hold;
+  border: 5px solid white;
+  padding: 20px;
+  color: white;
+}
+
+#tetris {
+  grid-area: tetris;
+  border: 1px solid black;
+  padding: 20px;
+  color: white;
+  text-align: center;
+  font-size: 30px;
+}
+
+#menu {
+  grid-area: menu;
+  border: 5px solid white;
+  padding: 20px;
+  color: white;
+}
+
+.menu-options {
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  cursor: pointer;
+}
+
+.menu-options div:hover {
+  color: lime;
+}
+
+#help-menu {
+  grid-area: board;
+  z-index: -1;
+  background-color: lightgray;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+
+#help-menu p {
+  line-height: 20px;
+}
+
+#board {
+  background-color: black;
+  grid-area: board;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#stats {
+  grid-area: stats;
+  border: 5px solid white;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#next {
+  grid-area: next;
+  border: 5px solid white;
+  padding: 20px;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.stats {
+  border: 5px solid white;
+  display: flex;
+  flex-direction: column;
+}
+
+.values {
+  padding: 60px;
+  text-align: center;
+  font-size: 40px;
+  color: lime;
 }

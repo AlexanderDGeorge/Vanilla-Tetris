@@ -19,7 +19,7 @@ class Tetromino {
     this.index = 0;
     this.color = this.setColor();
     this.domain = this.tetromino[this.index];
-    this.x = 3;
+    this.x = this.tetromino !== O ? 4 : 3;
     this.y = -2;
   }
 
@@ -81,6 +81,7 @@ class Tetromino {
     if (this.validMove(this.x, this.y + 1, this.domain)) {
       this.y++;
       this.draw();
+      // return true;
     } else {
       this.draw();
       return false;
