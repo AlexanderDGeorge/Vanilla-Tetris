@@ -7,7 +7,7 @@ Players will be able to:
 ### Wireframes
 This app will consist of a start and game screen. The start screen will hold options for starting a game and viewing the controls. The game screen will hold the game board, hold screen, a scoreboard, a next screen, and a pause button.
 
-![image](./wireframe.png)
+![image](./assets/wireframe.png)
 
 ### Architecture and Technologies
 This project will be implemented with the following technologies:
