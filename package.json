@@ -9,12 +9,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AlexanderDGeorge/Tetris.git"
+    "url": "https://github.com/AlexanderDGeorge/Vanilla-Tetris"
   },
   "author": "Alexander D George",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AlexanderDGeorge/Tetris/issues"
+    "url": "https://github.com/AlexanderDGeorge/Vanilla-Tetris/issues"
   },
   "homepage": "https://github.com/AlexanderDGeorge/Tetris#readme",
   "dependencies": {
