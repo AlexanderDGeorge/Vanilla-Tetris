@@ -112,10 +112,12 @@ class Board {
         pause.innerHTML = "resume"
         clearInterval(this.interval);
         audio.pause();
+        helpMenu.style.zIndex = '1';
       } else {
         pause.innerHTML = "pause"
         this.interval = setInterval(this.step, this.speed);
         audio.play();
+        helpMenu.style.zIndex = '-1';
       }
     }
   }
