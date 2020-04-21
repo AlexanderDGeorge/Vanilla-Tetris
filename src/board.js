@@ -89,11 +89,12 @@ class Board {
       // down is not a valid move, check if row is full and get the next tetromino
       let reduce = this.isRowFull();
       while (reduce) { 
-        reduce = this.isRowFull() 
+        reduce = this.isRowFull();
       }
       if (this.isGameOver()) {
-        alert("GAME OVER");
+        // alert("GAME OVER");
         clearInterval(this.interval);
+        this.handleGameOver();
       } else {
         this.current = new Tetromino(
           this.ctx,
@@ -171,6 +172,7 @@ class Board {
 
   isGameOver() {
     if (this.current.y <= 0) {
+
       return true
     } else {
       return false
@@ -194,6 +196,17 @@ class Board {
       row.push(EMPTY);
     }
     return row;
+  }
+
+  handleGameOver() {
+    const score = this.stats.score;
+    let highscore = parseInt(localStorage.getItem('highscore'));
+    if (highscore) {
+      if (score > highscore) localStorage.setItem('highscore', score.toString());
+    } else {
+      localStorage.setItem('highscore', score.toString());
+    }
+    console.log('highscore', highscore)
   }
 }
 
