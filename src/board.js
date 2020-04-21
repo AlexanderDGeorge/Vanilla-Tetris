@@ -202,11 +202,18 @@ class Board {
     const score = this.stats.score;
     let highscore = parseInt(localStorage.getItem('highscore'));
     if (highscore) {
-      if (score > highscore) localStorage.setItem('highscore', score.toString());
+      if (score > highscore) this.useHighscoreModal(score);
     } else {
-      localStorage.setItem('highscore', score.toString());
+      // localStorage.setItem('highscore', score.toString());
+      this.useHighscoreModal(score)
     }
     console.log('highscore', highscore)
+  }
+
+  useHighscoreModal(score) {
+    const modal = document.getElementById('modal');
+    document.getElementById('highscore').innerHTML = score;
+    modal.style.display = 'block';
   }
 }
 

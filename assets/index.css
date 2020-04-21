@@ -3,6 +3,10 @@
   src: url(./digital-7.ttf);
 }
 
+* {
+  font-family: 'digital-7';
+}
+
 #body {
   box-sizing: border-box;
   margin: 0;
@@ -17,7 +21,6 @@
     "menu board board"
     "tetris board board"
     "stats board board";
-  font-family: 'digital-7';
   font-size: 20px;
 }
 
@@ -112,4 +115,44 @@
   text-align: center;
   font-size: 40px;
   color: lime;
+}
+
+#modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+  background-color: #333333;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #999999;
+  width: 50%;
+}
+
+.modal-content div {
+  width: 100%;
+  height: 20px;
+  padding-bottom: 5px;
+  text-align: center;
+  color: lime;
+}
+
+.modal-content input {
+  background-color: #333333;
+  width: 100%;
+  border: 0;
+  padding: 20px;
+  box-sizing: border-box;
+  font-size: 20px;
+  color: lime;
+  outline: none;
+  text-align: center;
 }
