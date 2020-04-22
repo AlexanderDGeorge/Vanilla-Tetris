@@ -8,9 +8,10 @@ import {
 import Stats from "./stats";
 
 const pause = document.getElementById("pause");
-const help = document.getElementById("help");
+const leaderboard = document.getElementById("leaderboard");
 const helpMenu = document.getElementById("help-menu");
 const audio = document.getElementById("audio");
+const modal = document.getElementById("modal");
 
 class Board {
   constructor(canvas) {
@@ -25,7 +26,6 @@ class Board {
     this.input = this.input.bind(this);
     this.step = this.step.bind(this);
     this.pauseGame();
-    this.helpMenu();
     this.init();
   }
 
@@ -123,13 +123,6 @@ class Board {
     }
   }
 
-  helpMenu() {
-    help.onclick = () => { 
-      this.pause = !this.pause;
-      helpMenu.style.zIndex = this.pause ? "1" : "-1";
-    }
-  } 
-
   draw() {
     // draws the board
     this.ctx.canvas.height = MINO * 20;
@@ -172,7 +165,6 @@ class Board {
 
   isGameOver() {
     if (this.current.y <= 0) {
-
       return true
     } else {
       return false
@@ -215,8 +207,30 @@ class Board {
 
   }
 
+  restartModal() {
+    const content = document.getElementById('restart-modal');
+    const button = document.getElementById('restart-button');
+
+    modal.style.display = 'block';
+    content.style.display = 'flex';
+
+    function restart(e) {
+      if (button.contains(e.target)) {
+        modal.style.display = 'none';
+        content.style.display = 'none';
+        this.init();
+      }
+    }
+
+    window.addEventListener('click', restart(e).bind(this));
+  }
+
+  scoreModal() {
+    
+  }
+
   useHighscoreModal(score) {
-    const modal = document.getElementById('modal');
+    // const modal = document.getElementById('modal');
     const content = document.getElementById('highscore-modal');
     const input = document.getElementById('modal-input');
     const button = document.getElementsByClassName('modal-button')[0];
@@ -228,6 +242,9 @@ class Board {
     
     window.addEventListener('click', function(e){
       if (button.contains(e.target)) {
+        name = input.value;
+        modal.style.display = 'none';
+        content.style.display = 'none';
         this.init();
         // window.removeEventListener('click');
       } else if (!content.contains(e.target)){
