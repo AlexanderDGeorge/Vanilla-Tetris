@@ -186,7 +186,7 @@
   text-align: center;
 }
 
-.modal-button {
+#restart-button {
   font-size: 20px;
   color: #333333;
   background: limegreen;
@@ -195,6 +195,6 @@
   cursor: pointer;
 }
 
-.modal-button:hover {
+#restart-button:hover {
   background: lime;
 }

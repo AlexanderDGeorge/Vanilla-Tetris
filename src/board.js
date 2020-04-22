@@ -79,6 +79,7 @@ class Board {
    
     // draw board, reset stats, listen for user input, and start game
     this.draw();
+    this.fetchLeaders();
     this.stats = new Stats();
     document.addEventListener("keydown", this.input);
     this.start();
@@ -130,11 +131,13 @@ class Board {
         clearInterval(this.interval);
         audio.pause();
         helpMenu.style.zIndex = '1';
+        leaderboard.style.zIndex = '-1';
       } else {
         pause.innerHTML = "pause";
         this.interval = setInterval(this.step, this.speed);
         audio.play();
         helpMenu.style.zIndex = '-1';
+        leaderboard.style.zIndex = '0';
       }
     }
   }
@@ -143,15 +146,15 @@ class Board {
     leaderboard.onclick = () => {
       this.leaderboard = !this.leaderboard
       if (this.leaderboard) {
-        pause.innerHTML = "resume";
         clearInterval(this.interval);
         audio.pause();
         leaderboardMenu.style.zIndex = '1';
+        pause.style.zIndex = '-1';
       } else {
-        pause.innerHTML = "pause";
         this.interval = setInterval(this.step, this.speed);
         audio.play();
         leaderboardMenu.style.zIndex = '-1';
+        pause.style.zIndex = '0';
       }
     }
   }
@@ -228,6 +231,7 @@ class Board {
   }
 
   handleGameOver() {
+    audio.pause();
     let score = this.stats.score;
     let highscore = localStorage.getItem('highscore');
     if (highscore) {
@@ -236,6 +240,8 @@ class Board {
       if (score > highscore) {
         score = this.useHighscoreModal(score);
         localStorage.setItem('highscore', JSON.stringify(score));
+      } else {
+        this.restartModal();
       }
     } else {
       score = this.useHighscoreModal(score)
@@ -260,10 +266,6 @@ class Board {
     }
 
     window.addEventListener('click', restart(e).bind(this));
-  }
-
-  scoreModal() {
-    
   }
 
   useHighscoreModal(score) {
