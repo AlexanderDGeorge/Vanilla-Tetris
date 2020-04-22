@@ -7,19 +7,21 @@ import {
 } from "./constants";
 import Stats from "./stats";
 
+const start = document.getElementById('start');
 const pause = document.getElementById("pause");
 const leaderboard = document.getElementById("leaderboard");
 const helpMenu = document.getElementById("help-menu");
 const leaderboardMenu = document.getElementById("leaderboard-menu");
 const audio = document.getElementById("audio");
 const modal = document.getElementById("modal");
+let leaders = [];
 
 class Board {
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
     this.board = [];
     this.tetrominos = [];
-    this.stats = new Stats();
+    this.stats;
     this.speed;
     this.current;
     this.interval;
@@ -27,7 +29,7 @@ class Board {
     this.leaderboard = false;
     this.input = this.input.bind(this);
     this.step = this.step.bind(this);
-    this.pauseGame();
+    this.togglePause();
     this.toggleLeaderboard();
     this.init();
   }
@@ -75,11 +77,20 @@ class Board {
     );
     this.next();
    
-    // draw board, listen for user input, and start game
+    // draw board, reset stats, listen for user input, and start game
     this.draw();
+    this.stats = new Stats();
     document.addEventListener("keydown", this.input);
-    audio.play();
-    this.step()
+    this.start();
+  }
+
+  start() {
+    document.addEventListener("keydown", function(e){
+      if (e.keyCode === '32') {
+        start.style.zIndex = '-1';
+        this.step();
+      }
+    })
   }
 
   step() {
@@ -88,28 +99,30 @@ class Board {
       clearInterval(this.interval);
       this.interval = setInterval(this.step, this.speed);
     }
-    if (this.current.down() === false) {
-      // down is not a valid move, check if row is full and get the next tetromino
-      let reduce = this.isRowFull();
-      while (reduce) { 
-        reduce = this.isRowFull();
+    // while (!this.pause) {
+      if (this.current.down() === false) {
+        // down is not a valid move, check if row is full and get the next tetromino
+        let reduce = this.isRowFull();
+        while (reduce) { 
+          reduce = this.isRowFull();
+        }
+        if (this.isGameOver()) {
+          // alert("GAME OVER");
+          clearInterval(this.interval);
+          this.handleGameOver();
+        } else {
+          this.current = new Tetromino(
+            this.ctx,
+            this.board,
+            this.tetrominos.shift()
+          );
+          this.next();
+        }
       }
-      if (this.isGameOver()) {
-        // alert("GAME OVER");
-        clearInterval(this.interval);
-        this.handleGameOver();
-      } else {
-        this.current = new Tetromino(
-          this.ctx,
-          this.board,
-          this.tetrominos.shift()
-        );
-        this.next();
-      }
-    }
+    // }
   }
 
-  pauseGame() {
+  togglePause() {
     pause.onclick = () => { 
       this.pause = !this.pause 
       if (this.pause) {
@@ -141,6 +154,10 @@ class Board {
         leaderboardMenu.style.zIndex = '-1';
       }
     }
+  }
+
+  fetchLeaders() {
+
   }
 
   draw() {

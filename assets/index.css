@@ -51,6 +51,28 @@
   color: white;
 }
 
+#start {
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+	background-color: black;
+	color: lime;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+#start-content {
+  display: flex; 
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
 .menu-options {
   min-height: 100px;
   display: flex;
