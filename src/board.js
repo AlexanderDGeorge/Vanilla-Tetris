@@ -10,6 +10,7 @@ import Stats from "./stats";
 const pause = document.getElementById("pause");
 const leaderboard = document.getElementById("leaderboard");
 const helpMenu = document.getElementById("help-menu");
+const leaderboardMenu = document.getElementById("leaderboard-menu");
 const audio = document.getElementById("audio");
 const modal = document.getElementById("modal");
 
@@ -23,9 +24,11 @@ class Board {
     this.current;
     this.interval;
     this.pause = false;
+    this.leaderboard = false;
     this.input = this.input.bind(this);
     this.step = this.step.bind(this);
     this.pauseGame();
+    this.toggleLeaderboard();
     this.init();
   }
 
@@ -110,15 +113,32 @@ class Board {
     pause.onclick = () => { 
       this.pause = !this.pause 
       if (this.pause) {
-        pause.innerHTML = "resume"
+        pause.innerHTML = "resume";
         clearInterval(this.interval);
         audio.pause();
         helpMenu.style.zIndex = '1';
       } else {
-        pause.innerHTML = "pause"
+        pause.innerHTML = "pause";
         this.interval = setInterval(this.step, this.speed);
         audio.play();
         helpMenu.style.zIndex = '-1';
+      }
+    }
+  }
+
+  toggleLeaderboard() {
+    leaderboard.onclick = () => {
+      this.leaderboard = !this.leaderboard
+      if (this.leaderboard) {
+        pause.innerHTML = "resume";
+        clearInterval(this.interval);
+        audio.pause();
+        leaderboardMenu.style.zIndex = '1';
+      } else {
+        pause.innerHTML = "pause";
+        this.interval = setInterval(this.step, this.speed);
+        audio.play();
+        leaderboardMenu.style.zIndex = '-1';
       }
     }
   }
