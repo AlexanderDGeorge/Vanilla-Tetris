@@ -199,21 +199,38 @@ class Board {
   }
 
   handleGameOver() {
-    const score = this.stats.score;
-    let highscore = parseInt(localStorage.getItem('highscore'));
+    let score = this.stats.score;
+    let highscore = localStorage.getItem('highscore');
     if (highscore) {
-      if (score > highscore) this.useHighscoreModal(score);
+      highscore = JSON.parse(highscore);
+      highscore = Object.values(highscore)[0];
+      if (score > highscore) {
+        score = this.useHighscoreModal(score);
+        localStorage.setItem('highscore', JSON.stringify(score));
+      }
     } else {
-      // localStorage.setItem('highscore', score.toString());
-      this.useHighscoreModal(score)
+      score = this.useHighscoreModal(score)
+      localStorage.setItem('highscore', JSON.stringify(score));
     }
-    console.log('highscore', highscore)
+
   }
 
   useHighscoreModal(score) {
     const modal = document.getElementById('modal');
+    const modalbox = document.getElementById('modal-content');
+    const input = document.getElementById('highscore-input');
+
     document.getElementById('highscore').innerHTML = score;
     modal.style.display = 'block';
+    let name;
+    window.addEventListener('click', function(e){
+      if (!modalbox.contains(e.target)){
+        name = input.value;
+        modal.style.display = 'none';
+      }
+    })
+
+    return { name: score }
   }
 }
 
