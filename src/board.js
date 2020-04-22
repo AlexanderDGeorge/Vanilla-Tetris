@@ -85,12 +85,14 @@ class Board {
   }
 
   start() {
-    document.addEventListener("keydown", function(e){
-      if (e.keyCode === '32') {
+    document.addEventListener("keydown", function listenForSpace(e){
+      if (e.keyCode === 32) {
         start.style.zIndex = '-1';
+        document.removeEventListener("keydown", listenForSpace)
+        audio.play();
         this.step();
       }
-    })
+    }.bind(this))
   }
 
   step() {
@@ -99,7 +101,6 @@ class Board {
       clearInterval(this.interval);
       this.interval = setInterval(this.step, this.speed);
     }
-    // while (!this.pause) {
       if (this.current.down() === false) {
         // down is not a valid move, check if row is full and get the next tetromino
         let reduce = this.isRowFull();
@@ -119,7 +120,6 @@ class Board {
           this.next();
         }
       }
-    // }
   }
 
   togglePause() {
