@@ -205,32 +205,39 @@ class Board {
       highscore = JSON.parse(highscore);
       highscore = Object.values(highscore)[0];
       if (score > highscore) {
-        score = this.useHighscoreModal(score);
+        score = this.useModal(score);
         localStorage.setItem('highscore', JSON.stringify(score));
       }
     } else {
-      score = this.useHighscoreModal(score)
+      score = this.useModal(score)
       localStorage.setItem('highscore', JSON.stringify(score));
     }
 
   }
 
-  useHighscoreModal(score) {
+  useModal(score) {
     const modal = document.getElementById('modal');
-    const modalbox = document.getElementById('modal-content');
-    const input = document.getElementById('highscore-input');
+    const content = document.getElementById('modal-content');
+    const input = document.getElementById('modal-input');
+    const button = document.getElementById('modal-button');
 
-    document.getElementById('highscore').innerHTML = score;
+    document.getElementById('modal-score').innerHTML = score;
     modal.style.display = 'block';
     let name;
     window.addEventListener('click', function(e){
-      if (!modalbox.contains(e.target)){
+      if (button.contains(e.target)) {
+        
+      } else if (!content.contains(e.target)){
         name = input.value;
         modal.style.display = 'none';
       }
     })
 
     return { name: score }
+  }
+
+  restartGame() {
+    this.init();
   }
 }
 
