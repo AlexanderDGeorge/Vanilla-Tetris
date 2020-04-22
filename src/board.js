@@ -205,39 +205,40 @@ class Board {
       highscore = JSON.parse(highscore);
       highscore = Object.values(highscore)[0];
       if (score > highscore) {
-        score = this.useModal(score);
+        score = this.useHighscoreModal(score);
         localStorage.setItem('highscore', JSON.stringify(score));
       }
     } else {
-      score = this.useModal(score)
+      score = this.useHighscoreModal(score)
       localStorage.setItem('highscore', JSON.stringify(score));
     }
 
   }
 
-  useModal(score) {
+  useHighscoreModal(score) {
     const modal = document.getElementById('modal');
-    const content = document.getElementById('modal-content');
+    const content = document.getElementById('highscore-modal');
     const input = document.getElementById('modal-input');
-    const button = document.getElementById('modal-button');
+    const button = document.getElementsByClassName('modal-button')[0];
 
-    document.getElementById('modal-score').innerHTML = score;
+    document.getElementsByClassName('modal-score').innerHTML = score;
     modal.style.display = 'block';
+    content.style.display = 'flex';
     let name;
+    
     window.addEventListener('click', function(e){
       if (button.contains(e.target)) {
-        
+        this.init();
+        // window.removeEventListener('click');
       } else if (!content.contains(e.target)){
         name = input.value;
         modal.style.display = 'none';
+        content.style.display = 'none';
+        // window.removeEventListener('click');
       }
-    })
+    }.bind(this));
 
     return { name: score }
-  }
-
-  restartGame() {
-    this.init();
   }
 }
 

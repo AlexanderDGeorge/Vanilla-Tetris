@@ -13,9 +13,7 @@
   <audio controls id="audio" allow="autoplay">
     <source id="audio" src="./assets/Tetris Theme.mp3" type="audio/mp3"> 
   </audio>
-  <!-- <div id="hold">
-    Hold:
-  </div> -->
+
   <div id="tetris">
     TETRIS
   </div>
@@ -55,23 +53,25 @@
   <div id="board">
     <canvas id="board-canvas"></canvas>
   </div>
-  <!-- <div id="next">
-    Next:
-    <canvas id="next1"></canvas>
-    <canvas id="next2"></canvas>
-    <canvas id="next3"></canvas>
-  </div> -->
+
   <div id="modal">
-      <div id="modal-content">
-        <div id="modal-title"></div>
-        <div id="modal-score"></div>
-        <input id="modal-input"
-          type="text"
-          placeholder="NAME"
-        >
-        <button id="modal-button">PLAY AGAIN?</button>
-      </div>
+    <div id="highscore-modal" class="modal-content">
+      <div>NEW HIGHSCORE</div>
+      <div class="modal-score"></div>
+      <input id="modal-input"
+        type="text"
+        placeholder="NAME"
+      >
+      <button class="modal-button">PLAY AGAIN?</button>
+    </div>
+
+    <div id="restart-modal" class="modal-content">
+      <div>YOUR SCORE</div>
+      <div class="modal-score"></div>
+      <button class="modal-button">PLAY AGAIN?</button>
+    </div>
   </div>
+
   <script src="dist/main.js" type="text/javascript"></script>
 </body>
 </html>
