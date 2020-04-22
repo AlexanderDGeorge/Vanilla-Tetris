@@ -17,14 +17,7 @@
   <div id="tetris">
     TETRIS
   </div>
-  <div id="help-menu">
-    <p>
-      Use the arrow keys to control the tetromino.
-    </p>
-    <p>The up arrow rotates the current tetromino.</p>
-    <p>The left and right arrows move the tetromino in that respective direction.</p>
-    <p>The down arrow soft drops the current tetromino.</p>
-  </div>
+
   <div id="menu">
     Menu:
     <div class="menu-options">
@@ -36,6 +29,29 @@
       </div>
     </div>
   </div>
+
+  <div class="board-menu" id="help-menu">
+    <h1>GAME PAUSED</h1>
+    <p>
+      Use the arrow keys to control the tetromino.
+    </p>
+    <p>The up arrow rotates the current tetromino.</p>
+    <p>The left and right arrows move the tetromino in that respective direction.</p>
+    <p>The down arrow soft drops the current tetromino.</p>
+  </div>
+
+  <div class="board-menu" id="leaderboard-menu">
+    <h1>GAME PAUSED</h1>
+    Leaderboard:
+    <ol>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ol>
+  </div>
+
   <div id="stats">
     <div class="stats">
       Score:
@@ -50,6 +66,7 @@
       <div class="values" id="lines"></div>
     </div>
   </div>
+
   <div id="board">
     <canvas id="board-canvas"></canvas>
   </div>

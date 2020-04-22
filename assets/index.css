@@ -63,17 +63,19 @@
   color: lime;
 }
 
-#help-menu {
-  grid-area: board;
-  z-index: -1;
-  background-color: lightgray;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-evenly;
-}
-
 #help-menu p {
   line-height: 20px;
+}
+
+.board-menu {
+  grid-area: board;
+  z-index: -1;
+  background-color: black;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: lime;
 }
 
 #board {
