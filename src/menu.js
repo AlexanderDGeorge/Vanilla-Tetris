@@ -3,7 +3,8 @@ const pauseToggle = document.getElementById('pause-toggle');
 const leaderboardToggle = document.getElementById('leaderboard-toggle');
 const muteToggle = document.getElementById('mute-toggle');
 const help = document.getElementById('help-view');
-const leaderboard = document.getElementById('leaderboard-view');
+const leaderboardView = document.getElementById('leaderboard-view');
+const leaderboard = document.getElementsByClassName('leaderboard');
 const audio = document.getElementById('audio');
 const modal = document.getElementById('modal');
 
@@ -37,24 +38,24 @@ class Menu {
     handlePause() {
         if (this.pause) {
             help.style.zIndex = '1';
-            leaderboard.style.zIndex = '-1';
+            leaderboardView.style.zIndex = '-1';
             pauseToggle.innerHTML = 'resume';
         } else {
             pauseToggle.innerHTML = 'pause';
             help.style.zIndex = '-1';
-            leaderboard.style.zIndex = '-1';
+            leaderboardView.style.zIndex = '-1';
         }
     }
 
     handleLeaderboard() {
         if (this.leaderboard) {
             help.style.zIndex = '-1';
-            leaderboard.style.zIndex = '1';
+            leaderboardView.style.zIndex = '1';
             pauseToggle.innerHTML = 'resume';
         } else {
             pauseToggle.innerHTML = 'pause';
             help.style.zIndex = '-1';
-            leaderboard.style.zIndex = '-1';
+            leaderboardView.style.zIndex = '-1';
         }
     }
 
@@ -72,27 +73,45 @@ class Menu {
         // grabs leaderboard from localStorage and parses
         let leaders = localStorage.getItem('leaderboard');
         if (leaders) this.leaders = JSON.parse(leaders);
+        console.log(this.leaders)
         this.populateLeaderboard();
     }
 
     populateLeaderboard() {
-        let j = 0;
-        leaderboard.childNodes.forEach((child, i) => {
-            // evens are text, odds are li
-            if(i % 2 === 1) {
-                child.innerHTML = this.leaders[j];
-                j++;
+        for (let i = 0; i < 5; i++) {
+            if (this.leaders[i]) {
+                for (let [name, score] of Object.entries(this.leaders[i])) {
+                    console.log(name, score);
+                    leaderboard[i].innerHTML = `${name}: ${score}`;
+                }
             }
-        })
+        }
     }
 
+    addNewLeader(name, new_score) {
+        let index = -1;
+        // loops through leaders to find where to insert new score
+        for (let i = 0; i < 5; i++) {
+            if (this.leaders[i]) {
+                for (let [_, score] of Object.entries(this.leaders[i])) {
+                    if (new_score > score) {
+                        index = i;
+                    }
+                }
+                if (index > -1) break; 
+            } else {
+                index = i;
+                break;
+            }
+        }
 
+        if (index > -1) {
+            this.leaders.splice(index, { name: new_score });
+            localStorage.setItem('leaderboard', JSON.stringify(this.leaders));
+        }
 
-
-
-
-
-
+        this.fetchLeaders();
+    }
 }
 
 export default Menu;
