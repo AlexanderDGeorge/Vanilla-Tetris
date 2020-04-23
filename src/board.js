@@ -25,6 +25,7 @@ class Board {
     this.speed;
     this.current;
     this.interval;
+    this.mute = false;
     this.pause = false;
     this.leaderboard = false;
     this.input = this.input.bind(this);
@@ -86,10 +87,11 @@ class Board {
   }
 
   start() {
+    start.style.zIndex = '1';
     document.addEventListener("keydown", function listenForSpace(e){
       if (e.keyCode === 32) {
         start.style.zIndex = '-1';
-        document.removeEventListener("keydown", listenForSpace)
+        document.removeEventListener("keydown", listenForSpace, true)
         audio.play();
         this.step();
       }
@@ -109,7 +111,6 @@ class Board {
           reduce = this.isRowFull();
         }
         if (this.isGameOver()) {
-          // alert("GAME OVER");
           clearInterval(this.interval);
           this.handleGameOver();
         } else {
@@ -258,6 +259,7 @@ class Board {
     content.style.display = 'flex';
 
     function restart(e) {
+      console.log("here")
       if (button.contains(e.target)) {
         modal.style.display = 'none';
         content.style.display = 'none';
@@ -265,11 +267,10 @@ class Board {
       }
     }
 
-    window.addEventListener('click', restart(e).bind(this));
+    window.addEventListener('click', restart.bind(this));
   }
 
   useHighscoreModal(score) {
-    // const modal = document.getElementById('modal');
     const content = document.getElementById('highscore-modal');
     const input = document.getElementById('modal-input');
     const button = document.getElementsByClassName('modal-button')[0];
