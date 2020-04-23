@@ -6,31 +6,28 @@ import {
   TETROMINOS
 } from "./constants";
 import Stats from "./stats";
+import Menu from './menu';
 
 const start = document.getElementById('start');
-const pause = document.getElementById("pause");
-const leaderboard = document.getElementById("leaderboard");
-const helpMenu = document.getElementById("help-menu");
-const leaderboardMenu = document.getElementById("leaderboard-menu");
-const audio = document.getElementById("audio");
-const modal = document.getElementById("modal");
+const pauseToggle = document.getElementById('pause-toggle');
+const leaderboardToggle = document.getElementById('leaderboard-toggle');
+const help = document.getElementById('help-view');
+const leaderboard = document.getElementById('leaderboard-view');
+const audio = document.getElementById('audio');
+const modal = document.getElementById('modal');
 
 class Board {
   constructor(canvas) {
     this.ctx = canvas.getContext("2d");
     this.board = [];
     this.tetrominos = [];
+    this.menu = new Menu();
     this.stats;
     this.speed;
     this.current;
     this.interval;
-    this.mute = false;
-    this.pause = false;
-    this.leaderboard = false;
     this.input = this.input.bind(this);
     this.step = this.step.bind(this);
-    this.togglePause();
-    this.toggleLeaderboard();
     this.init();
   }
 
@@ -123,37 +120,37 @@ class Board {
   }
 
   togglePause() {
-    pause.onclick = () => { 
+    pauseToggle.onclick = () => { 
       this.pause = !this.pause 
       if (this.pause) {
-        pause.innerHTML = "resume";
+        pauseToggle.innerHTML = "resume";
         clearInterval(this.interval);
         audio.pause();
-        helpMenu.style.zIndex = '1';
-        leaderboard.style.zIndex = '-1';
+        help.style.zIndex = '1';
+        leaderboardToggle.style.zIndex = '-1';
       } else {
-        pause.innerHTML = "pause";
+        pauseToggle.innerHTML = "pause";
         this.interval = setInterval(this.step, this.speed);
         audio.play();
-        helpMenu.style.zIndex = '-1';
-        leaderboard.style.zIndex = '0';
+        help.style.zIndex = '-1';
+        leaderboardToggle.style.zIndex = '0';
       }
     }
   }
 
   toggleLeaderboard() {
-    leaderboard.onclick = () => {
+    leaderboardToggle.onclick = () => {
       this.leaderboard = !this.leaderboard
       if (this.leaderboard) {
         clearInterval(this.interval);
         audio.pause();
-        leaderboardMenu.style.zIndex = '1';
-        pause.style.zIndex = '-1';
+        leaderboard.style.zIndex = '1';
+        pauseToggle.style.zIndex = '-1';
       } else {
         this.interval = setInterval(this.step, this.speed);
         audio.play();
-        leaderboardMenu.style.zIndex = '-1';
-        pause.style.zIndex = '0';
+        leaderboard.style.zIndex = '-1';
+        pauseToggle.style.zIndex = '0';
       }
     }
   }

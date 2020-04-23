@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <link rel="stylesheet" href="./assets/index.css">
-  <link rel="icon" href="./assets/favicon.ico">
-  <title>Tetris</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="./assets/index.css">
+<link rel="icon" href="./assets/favicon.ico">
+<title>Tetris</title>
 </head>
 
 <body id="body">
-  <audio controls id="audio" allow="autoplay">
-    <source id="audio" src="./assets/Tetris Theme.mp3" type="audio/mp3"> 
-  </audio>
+<audio controls id="audio" allow="autoplay">
+	<source id="audio" src="./assets/Tetris Theme.mp3" type="audio/mp3"> 
+</audio>
 
-  <div id="tetris">
-    TETRIS
-  </div>
+<div id="tetris">
+	TETRIS
+</div>
 
-  <div id="start">
-    <div id="start-content">
-      <h1>TETRIS</h1>
-      <p>PRESS SPACE TO START</p>
-    </div>
-  </div>
+<div id="start">
+	<div id="start-content">
+	<h1>TETRIS</h1>
+	<p>PRESS SPACE TO START</p>
+	</div>
+</div>
 
-  <div id="menu">
-    <div class="menu-options">
-      <div id="pause">
-        Pause
-      </div>
-      <div id="leaderboard">
-        Leaderboard
-      </div>
-      <div id="mute">
-        Mute
-      </div>
-    </div>
-  </div>
+<div id="menu">
+	<div id="menu-options">
+	<div class="menu-option" id="pause-toggle">
+		Pause
+	</div>
+	<div class="menu-option" id="leaderboard-toggle">
+		Leaderboard
+	</div>
+	<div class="menu-option" id="mute-toggle">
+		Mute
+	</div>
+	</div>
+</div>
 
-  <div class="board-menu" id="help-menu">
-    <h1>GAME PAUSED</h1>
-    <p>
-      Use the arrow keys to control the tetromino.
-    </p>
-    <p>The up arrow rotates the current tetromino.</p>
-    <p>The left and right arrows move the tetromino in that respective direction.</p>
-    <p>The down arrow soft drops the current tetromino.</p>
-  </div>
+<div class="board-menu" id="help-view">
+	<h1>GAME PAUSED</h1>
+	<p>
+	Use the arrow keys to control the tetromino.
+	</p>
+	<p>The up arrow rotates the current tetromino.</p>
+	<p>The left and right arrows move the tetromino in that respective direction.</p>
+	<p>The down arrow soft drops the current tetromino.</p>
+</div>
 
-  <div class="board-menu" id="leaderboard-menu">
-    <h1>GAME PAUSED</h1>
-    Leaderboard:
-    <ol>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-      <li></li>
-    </ol>
-  </div>
+<div class="board-menu" id="leaderboard-view">
+	<h1>GAME PAUSED</h1>
+	<h1>Leaderboard:</h1>
+	<ol id="leaderboard">
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+		<li></li>
+	</ol>
+</div>
 
-  <div id="stats">
-    <div class="stats">
-      Score:
-      <div class="values" id="score"></div>
-    </div>
-    <div class="stats">
-      Level:
-      <div class="values" id="level"></div>
-    </div>
-    <div class="stats">
-      Lines:
-      <div class="values" id="lines"></div>
-    </div>
-  </div>
+<div id="stats">
+	<div class="stats">
+	Score:
+	<div class="values" id="score"></div>
+	</div>
+	<div class="stats">
+	Level:
+	<div class="values" id="level"></div>
+	</div>
+	<div class="stats">
+	Lines:
+	<div class="values" id="lines"></div>
+	</div>
+</div>
 
-  <div id="board">
-    <canvas id="board-canvas"></canvas>
-  </div>
+<div id="board">
+	<canvas id="board-canvas"></canvas>
+</div>
 
-  <div id="modal">
-    <div id="highscore-modal" class="modal-content">
-      <div>NEW HIGHSCORE</div>
-      <div class="modal-score"></div>
-      <input id="modal-input"
-        type="text"
-        placeholder="NAME"
-      >
-    </div>
+<div id="modal">
+	<div id="highscore-modal" class="modal-content">
+	<div>NEW HIGHSCORE</div>
+	<div class="modal-score"></div>
+	<input id="modal-input"
+		type="text"
+		placeholder="NAME"
+	>
+	</div>
 
-    <div id="restart-modal" class="modal-content">
-      <button id="restart-button">PLAY AGAIN?</button>
-    </div>
-  </div>
+	<div id="restart-modal" class="modal-content">
+	<button id="restart-button">PLAY AGAIN?</button>
+	</div>
+</div>
 
-  <script src="dist/main.js" type="text/javascript"></script>
+<script src="dist/main.js" type="text/javascript"></script>
 </body>
 </html>

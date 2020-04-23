@@ -73,7 +73,7 @@
   align-items: center;
 }
 
-.menu-options {
+#menu-options {
   min-height: 100px;
   display: flex;
   flex-direction: column;
@@ -81,7 +81,7 @@
   cursor: pointer;
 }
 
-.menu-options div:hover {
+#menu-options div:hover {
   color: lime;
 }
 
