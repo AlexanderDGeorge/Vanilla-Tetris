@@ -182,7 +182,8 @@ class Board {
   }
 
   handleGameOver() {
-
+    let score = this.stats.getScore();
+    this.menu.handleScore(score);
   }
 }
 

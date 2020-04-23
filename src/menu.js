@@ -73,7 +73,6 @@ class Menu {
         // grabs leaderboard from localStorage and parses
         let leaders = localStorage.getItem('leaderboard');
         if (leaders) this.leaders = JSON.parse(leaders);
-        console.log(this.leaders)
         this.populateLeaderboard();
     }
 
@@ -81,52 +80,55 @@ class Menu {
         for (let i = 0; i < 5; i++) {
             if (this.leaders[i]) {
                 for (let [name, score] of Object.entries(this.leaders[i])) {
-                    console.log(name, score);
                     leaderboard[i].innerHTML = `${name}: ${score}`;
                 }
             }
         }
     }
 
-    handleScore(new_score) {
+    handleScore(score) {
+        if (this.leaders[4]) {
+            if (score > Object.values(this.leaders[4])[0]) this.getName();
+            else this.handleRestart();
+        } else {
+            this.getName();
+        }
+    }
+
+    getName() {
         const content = document.getElementById('name-modal');
         const input = document.getElementById('modal-input');
         const button = document.getElementById('modal-submit');
-        let key = this.leaders[5].keys[0];
-        if (this.leaders[5] || this.leaders[5][key] < new_score) {
-            modal.style.display = 'block';
-            content.style.display = 'flex';
-            button.onclick = () => {
-                let name = input.value;
-                this.addNewLeader(name, new_score);
-                this.handleRestart();
-                modal.style.display = 'none';
-                content.style.display = 'none';
-            }
-        } else {
+        modal.style.display = 'block';
+        content.style.display = 'flex';
+        button.onclick = () => {
+            let name = input.value;
+            modal.style.display = 'none';
+            content.style.display = 'none';
+            this.addNewLeader(name, score);
             this.handleRestart();
         }
     }
 
-    addNewLeader(name, new_score) {
+    addNewLeader(name, score) {
+        debugger;
         let index = -1;
         // loops through leaders to find where to insert new score
         for (let i = 0; i < 5; i++) {
-            if (this.leaders[i]) {
-                for (let [_, score] of Object.entries(this.leaders[i])) {
-                    if (new_score > score) {
-                        index = i;
-                    }
-                }
-                if (index > -1) break; 
-            } else {
+            if (!this.leaders[i]) {
                 index = i;
                 break;
+            } else {
+                let highscore = Object.values(this.leaders[i])[0];
+                if (score > highscore) {
+                    index = i;
+                    break;
+                }
             }
         }
 
         if (index > -1) {
-            this.leaders.splice(index, { name: new_score });
+            this.leaders.splice(index, { name: score });
             localStorage.setItem('leaderboard', JSON.stringify(this.leaders));
         }
 
@@ -141,7 +143,6 @@ class Menu {
         button.onclick = () => {
             modal.style.display = 'none';
             content.style.display = 'none';
-            return true;
         }
     }
 }

@@ -1,4 +1,4 @@
-const score = document.getElementById("score");
+const scoreview = document.getElementById("scoreview");
 const level = document.getElementById("level");
 const lines = document.getElementById("lines");
 
@@ -32,8 +32,12 @@ class Stats {
     return this.speed;
   }
 
+  getScore() {
+     return this.score;
+  }
+
   printStats() {
-    score.innerHTML = this.score;
+    scoreview.innerHTML = this.score;
     level.innerHTML = this.level;
     lines.innerHTML = this.lines;
   }
