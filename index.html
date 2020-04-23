@@ -81,17 +81,19 @@
 </div>
 
 <div id="modal">
-	<div id="highscore-modal" class="modal-content">
-	<div>NEW HIGHSCORE</div>
-	<div class="modal-score"></div>
-	<input id="modal-input"
-		type="text"
-		placeholder="NAME"
-	>
-	</div>
+	<form id="name-modal" class="modal-content">
+		<div>NEW HIGHSCORE</div>
+		<div id="modal-score"></div>
+		<input id="modal-input"
+			type="text"
+			placeholder="NAME"
+			required
+		>
+		<button id="modal-submit" type="submit">Submit</button>
+	</form>
 
 	<div id="restart-modal" class="modal-content">
-	<button id="restart-button">PLAY AGAIN?</button>
+		<button id="restart-button">PLAY AGAIN?</button>
 	</div>
 </div>
 

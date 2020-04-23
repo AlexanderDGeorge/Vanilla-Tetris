@@ -88,6 +88,26 @@ class Menu {
         }
     }
 
+    handleScore(new_score) {
+        const content = document.getElementById('name-modal');
+        const input = document.getElementById('modal-input');
+        const button = document.getElementById('modal-submit');
+        let key = this.leaders[5].keys[0];
+        if (this.leaders[5] || this.leaders[5][key] < new_score) {
+            modal.style.display = 'block';
+            content.style.display = 'flex';
+            button.onclick = () => {
+                let name = input.value;
+                this.addNewLeader(name, new_score);
+                this.handleRestart();
+                modal.style.display = 'none';
+                content.style.display = 'none';
+            }
+        } else {
+            this.handleRestart();
+        }
+    }
+
     addNewLeader(name, new_score) {
         let index = -1;
         // loops through leaders to find where to insert new score
@@ -111,6 +131,18 @@ class Menu {
         }
 
         this.fetchLeaders();
+    }
+
+    handleRestart() {
+        const content = document.getElementById('restart-modal');
+        const button = document.getElementById('restart-button');
+        modal.style.display = 'block';
+        content.style.display = 'flex';
+        button.onclick = () => {
+            modal.style.display = 'none';
+            content.style.display = 'none';
+            return true;
+        }
     }
 }
 

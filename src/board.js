@@ -9,12 +9,7 @@ import Stats from "./stats";
 import Menu from './menu';
 
 const start = document.getElementById('start');
-const pauseToggle = document.getElementById('pause-toggle');
-const leaderboardToggle = document.getElementById('leaderboard-toggle');
-const help = document.getElementById('help-view');
-const leaderboard = document.getElementById('leaderboard-view');
 const audio = document.getElementById('audio');
-const modal = document.getElementById('modal');
 
 class Board {
   constructor(canvas) {
@@ -119,42 +114,6 @@ class Board {
       }
   }
 
-  togglePause() {
-    pauseToggle.onclick = () => { 
-      this.pause = !this.pause 
-      if (this.pause) {
-        pauseToggle.innerHTML = "resume";
-        clearInterval(this.interval);
-        audio.pause();
-        help.style.zIndex = '1';
-        leaderboardToggle.style.zIndex = '-1';
-      } else {
-        pauseToggle.innerHTML = "pause";
-        this.interval = setInterval(this.step, this.speed);
-        audio.play();
-        help.style.zIndex = '-1';
-        leaderboardToggle.style.zIndex = '0';
-      }
-    }
-  }
-
-  toggleLeaderboard() {
-    leaderboardToggle.onclick = () => {
-      this.leaderboard = !this.leaderboard
-      if (this.leaderboard) {
-        clearInterval(this.interval);
-        audio.pause();
-        leaderboard.style.zIndex = '1';
-        pauseToggle.style.zIndex = '-1';
-      } else {
-        this.interval = setInterval(this.step, this.speed);
-        audio.play();
-        leaderboard.style.zIndex = '-1';
-        pauseToggle.style.zIndex = '0';
-      }
-    }
-  }
-
   draw() {
     // draws the board
     this.ctx.canvas.height = MINO * 20;
@@ -223,70 +182,7 @@ class Board {
   }
 
   handleGameOver() {
-    audio.pause();
-    let score = this.stats.score;
-    let highscore = localStorage.getItem('highscore');
-    if (highscore) {
-      highscore = JSON.parse(highscore);
-      highscore = Object.values(highscore)[0];
-      if (score > highscore) {
-        score = this.useHighscoreModal(score);
-        localStorage.setItem('highscore', JSON.stringify(score));
-      } else {
-        this.restartModal();
-      }
-    } else {
-      score = this.useHighscoreModal(score)
-      localStorage.setItem('highscore', JSON.stringify(score));
-    }
 
-  }
-
-  restartModal() {
-    const content = document.getElementById('restart-modal');
-    const button = document.getElementById('restart-button');
-
-    modal.style.display = 'block';
-    content.style.display = 'flex';
-
-    function restart(e) {
-      console.log("here")
-      if (button.contains(e.target)) {
-        modal.style.display = 'none';
-        content.style.display = 'none';
-        this.init();
-      }
-    }
-
-    window.addEventListener('click', restart.bind(this));
-  }
-
-  useHighscoreModal(score) {
-    const content = document.getElementById('highscore-modal');
-    const input = document.getElementById('modal-input');
-    const button = document.getElementsByClassName('modal-button')[0];
-
-    document.getElementsByClassName('modal-score').innerHTML = score;
-    modal.style.display = 'block';
-    content.style.display = 'flex';
-    let name;
-    
-    window.addEventListener('click', function(e){
-      if (button.contains(e.target)) {
-        name = input.value;
-        modal.style.display = 'none';
-        content.style.display = 'none';
-        this.init();
-        // window.removeEventListener('click');
-      } else if (!content.contains(e.target)){
-        name = input.value;
-        modal.style.display = 'none';
-        content.style.display = 'none';
-        // window.removeEventListener('click');
-      }
-    }.bind(this));
-
-    return { name: score }
   }
 }
 
