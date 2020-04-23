@@ -14,7 +14,6 @@ const helpMenu = document.getElementById("help-menu");
 const leaderboardMenu = document.getElementById("leaderboard-menu");
 const audio = document.getElementById("audio");
 const modal = document.getElementById("modal");
-let leaders = [];
 
 class Board {
   constructor(canvas) {
@@ -36,9 +35,9 @@ class Board {
   }
 
   input(e) {
-    if (e.keyCode === 32) {
-      //this.current.drop();
-    }
+    // if (e.keyCode === 32) {
+    //   //this.current.drop();
+    // }
     if (e.keyCode === 37) {
       this.current.left();
     }
@@ -51,9 +50,9 @@ class Board {
     if (e.keyCode === 40) {
       this.current.down();
     }
-    if (e.keyCode === 72) {
-      //this.current.hold();
-    }
+    // if (e.keyCode === 72) {
+    //   //this.current.hold();
+    // }
   }
 
   init() {
@@ -80,7 +79,6 @@ class Board {
    
     // draw board, reset stats, listen for user input, and start game
     this.draw();
-    this.fetchLeaders();
     this.stats = new Stats();
     document.addEventListener("keydown", this.input);
     this.start();
@@ -158,10 +156,6 @@ class Board {
         pause.style.zIndex = '0';
       }
     }
-  }
-
-  fetchLeaders() {
-
   }
 
   draw() {
