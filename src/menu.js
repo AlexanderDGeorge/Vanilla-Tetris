@@ -88,14 +88,14 @@ class Menu {
 
     handleScore(score) {
         if (this.leaders[4]) {
-            if (score > Object.values(this.leaders[4])[0]) this.getName();
+            if (score > Object.values(this.leaders[4])[0]) this.getName(score);
             else this.handleRestart();
         } else {
-            this.getName();
+            this.getName(score);
         }
     }
 
-    getName() {
+    getName(score) {
         const content = document.getElementById('name-modal');
         const input = document.getElementById('modal-input');
         const button = document.getElementById('modal-submit');
@@ -111,7 +111,6 @@ class Menu {
     }
 
     addNewLeader(name, score) {
-        debugger;
         let index = -1;
         // loops through leaders to find where to insert new score
         for (let i = 0; i < 5; i++) {
@@ -128,7 +127,8 @@ class Menu {
         }
 
         if (index > -1) {
-            this.leaders.splice(index, { name: score });
+            // debugger;
+            this.leaders.splice(index, 1, { [name] : score });
             localStorage.setItem('leaderboard', JSON.stringify(this.leaders));
         }
 
@@ -140,10 +140,12 @@ class Menu {
         const button = document.getElementById('restart-button');
         modal.style.display = 'block';
         content.style.display = 'flex';
-        button.onclick = () => {
-            modal.style.display = 'none';
-            content.style.display = 'none';
-        }
+        document.addEventListener('click', function(e){
+            if (button.contains(e)) {
+                modal.style.display = 'none';
+                content.style.display = 'none';
+            }
+        })
     }
 }
 
