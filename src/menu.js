@@ -127,7 +127,6 @@ class Menu {
         }
 
         if (index > -1) {
-            // debugger;
             this.leaders.splice(index, 1, { [name] : score });
             localStorage.setItem('leaderboard', JSON.stringify(this.leaders));
         }
