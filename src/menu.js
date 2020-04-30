@@ -65,7 +65,7 @@ class Menu {
             audio.volume = '0';
         } else {
             muteToggle.innerHTML = 'mute';
-            audio.volume = '0.5';
+            audio.volume = '0.3';
         }
     }
 
@@ -136,11 +136,11 @@ class Menu {
 
     handleRestart() {
         const content = document.getElementById('restart-modal');
-        const button = document.getElementById('restart-button');
+        const restart = document.getElementById('restart-button');
         modal.style.display = 'block';
         content.style.display = 'flex';
         document.addEventListener('click', function(e){
-            if (button.contains(e)) {
+            if (restart.contains(e)) {
                 modal.style.display = 'none';
                 content.style.display = 'none';
             }

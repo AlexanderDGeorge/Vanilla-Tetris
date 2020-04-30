@@ -21,7 +21,7 @@ class Board {
     this.speed;
     this.current;
     this.interval;
-    this.rows = 0;
+    this.lines = 0;
     this.input = this.input.bind(this);
     this.step = this.step.bind(this);
     this.init();
@@ -83,6 +83,7 @@ class Board {
       if (e.keyCode === 32) {
         start.style.zIndex = '-1';
         document.removeEventListener("keydown", listenForSpace, true)
+        audio.volume = '0.3';
         audio.play();
         this.step();
       }
@@ -101,8 +102,8 @@ class Board {
         while (reduce) { 
           reduce = this.isRowFull();
         }
-        this.updateScore();
-        this.rows = 0;
+        this.stats.updateScore(this.lines);
+        this.lines = 0;
         if (this.isGameOver()) {
           clearInterval(this.interval);
           this.handleGameOver();
@@ -172,8 +173,7 @@ class Board {
     this.board.unshift(this.emptyRow());
     this.board = Math.transpose(this.board);
     this.draw();
-    this.rows++;
-    // this.stats.updateScore(10)
+    this.lines++;
   }
 
   emptyRow() {
@@ -183,13 +183,6 @@ class Board {
       row.push(EMPTY);
     }
     return row;
-  }
-
-  updateScore() {
-    if (this.rows === 1) this.stats.updateScore(40 * (this.stats.level + 1));
-    else if (this.rows === 2) this.stats.updateScore(100 * (this.stats.level + 1));
-    else if (this.rows === 3) this.stats.updateScore(300 * (this.stats.level + 1));
-    else if (this.rows === 4) this.stats.updateScore(1200 * (this.stats.level + 1));
   }
 
   handleGameOver() {
